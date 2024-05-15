@@ -28,6 +28,7 @@ class YOLOV5_Detector:
         self.model = attempt_load(weights, map_location=self.device)  # load FP32 model
         self.stride = int(self.model.stride.max())  # model stride
         self.imgsz = check_img_size(img_size, s=self.stride)  # check img_size
+        self.counts = {obj: 0 for obj in label}
 
     def plot_one_box(self, x, img, color=None, label=None, line_thickness=3):
         # Plots one bounding box on image img
@@ -75,15 +76,19 @@ class YOLOV5_Detector:
                 # Print results
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
+                    self.counts[label[int(c)]] += int(n) #count
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
 
                 for *xyxy, conf, cls in reversed(det):
                     l = label[int(cls.tolist())]
+                    
+                    self.counts[l] += 1                    
                     c = (0, 0, 255)
 
                     self.plot_one_box(xyxy, img0, color=c, label=l, line_thickness=3)
+                    
 
-                print("Total Detections:", len(det))
+                #print("Total Detections:", len(det))
 
         # when you detect image uncomment line 89,90,92
         # cv2.imshow("Result", img0)
@@ -92,7 +97,10 @@ class YOLOV5_Detector:
         # cv2.destroyAllWindows()
         return img0
         # when you detect video comment line 89,90,92
-
+        
+    #Returns object counts dictionary
+    def get_counts(self):
+        return self.counts
 
 detector = YOLOV5_Detector(weights='best.pt',
                            img_size=640,
@@ -101,9 +109,9 @@ detector = YOLOV5_Detector(weights='best.pt',
                            agnostic_nms=True,
                            augment=True)
 
-img = cv2.imread(r"Dataset/images/image (178).jpg")
-# img = cv2.imread(r"face mask detection/Dataset/images/image(502).jpg")
-# img = cv2.imread(r"face mask detection/Dataset/images/image(503).jpg")
-# img = cv2.imread(r"face mask detection/Dataset/images/image(504).jpg")
-# img = cv2.imread(r"face mask detection/Dataset/images/image(505).jpg")
-detector.Detect(img)
+# img = cv2.imread(r"Dataset/images/image (178).jpg")
+# # img = cv2.imread(r"face mask detection/Dataset/images/image(502).jpg")
+# # img = cv2.imread(r"face mask detection/Dataset/images/image(503).jpg")
+# # img = cv2.imread(r"face mask detection/Dataset/images/image(504).jpg")
+# # img = cv2.imread(r"face mask detection/Dataset/images/image(505).jpg")
+# detector.Detect(img)
