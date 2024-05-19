@@ -9,7 +9,7 @@ from utils.general import check_img_size, non_max_suppression, scale_coords
 from utils.torch_utils import select_device
 
 label = [
-    'mask',
+    'knife',
     'glasses'
 ]
 

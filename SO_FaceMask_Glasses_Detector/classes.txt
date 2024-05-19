@@ -1,1 +1,1 @@
-'mask','glasses'
+'knife','glasses'

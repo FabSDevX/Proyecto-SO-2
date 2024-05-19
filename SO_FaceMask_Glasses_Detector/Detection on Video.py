@@ -18,6 +18,7 @@ while True:
     ret, frame = vid.read()
     if ret:
         res = detector.Detect(frame)
+        
         cv2.imshow("Detection", res)
         key = cv2.waitKey(1)
         if key == ord('q'):

@@ -1,0 +1,7 @@
+https://images.cv/download/knife/3446
+https://www.makesense.ai/
+https://datasetninja.com/od-weapon-detection-knife-detection
+
+Repo guia: https://github.com/Asafbs94/FaceMask_Glasses_Detector
+Yolov5: https://github.com/ultralytics/yolov5
+Yolov5 tutorial: https://docs.ultralytics.com/yolov5/tutorials/train_custom_data/#13-prepare-dataset-for-yolov5
