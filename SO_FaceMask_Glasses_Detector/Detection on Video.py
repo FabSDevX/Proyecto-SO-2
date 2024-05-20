@@ -7,9 +7,9 @@ from Detector import YOLOV5_Detector
 # for video detection addd path in video path
 video_path = 'video (2).mp4'
 vid = cv2.VideoCapture(video_path)
-detector = YOLOV5_Detector(weights='best.pt',
+detector = YOLOV5_Detector(weights='as.pt',
                            img_size=640,
-                           confidence_thres=0.3,
+                           confidence_thres=0.25,
                            iou_thresh=0.45,
                            agnostic_nms=True,
                            augment=True)
@@ -30,7 +30,7 @@ vid.release()
 cv2.destroyAllWindows()
 
 # Obtener y mostrar los conteos acumulados
-counts = detector.get_counts()
-print("Total Counts:")
-for obj, count in counts.items():
-    print(f"{obj}: {count / 54.8}")
+# counts = detector.get_counts()
+# print("Total Counts:")
+# for obj, count in counts.items():
+#     print(f"{obj}: {count / 54.8}")

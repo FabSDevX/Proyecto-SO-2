@@ -1,0 +1,9 @@
+path: C:/Users/FabriTGM/Desktop/Proyectos/Proyecto-SO-2/SO_FaceMask_Glasses_Detector/dataset/train_dataset # dataset root dir
+train: images/train # train images (relative to 'path') n images
+val: images/val # val images (relative to 'path') n images
+
+# Classes
+names:
+  0: knife
+  1: glasses
+
