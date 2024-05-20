@@ -2,9 +2,9 @@ import multiprocessing
 import os
 import tempfile
 from flask import Blueprint, jsonify, request
-from .utils import obtain_video_duration,cut_video,guardar_partes, guardar_parte
 from azure.storage.blob import BlobServiceClient
 import requests
+from .utils import obtain_video_duration, guardar_partes
 
 routes = Blueprint('routes', __name__)
 
@@ -60,9 +60,16 @@ def obtener_elementos():
 def procesar_pelicula():
     if request.method == 'POST':
 
+
         video_url = request.form.get('url_pelicula')
         if not video_url:
             return "No URL provided", 400
+
+        
+        num_cpus = abs(multiprocessing.cpu_count() - 3)
+        if(num_cpus==0):num_cpus=1
+        elif(num_cpus>=6):num_cpus=5
+
         
         video_filename = 'MessiMates.mp4'
 
@@ -81,23 +88,10 @@ def procesar_pelicula():
         #print(duration)
 
         movie_cuts = duration / num_cpus
-        # minuts_movie = []
-        # for x in range(num_cpus):
-        #     if not minuts_movie:
-        #         minuts_movie.append((0,movie_cuts * 60))
-        #     else:
-        #         minuts_movie.append((minuts_movie[x-1][1],minuts_movie[x-1][1] + (movie_cuts*60)))
        
-        processes = []
-        for i in range(num_cpus):
-            start = i * movie_cuts
-            end = start + movie_cuts if i < num_cpus - 1 else duration
-            process = multiprocessing.Process(target=guardar_parte, args=(video_filename, start, end))
-            processes.append(process)
-            process.start()
+        cuts = [(i * movie_cuts, (i + 1) * movie_cuts if i < num_cpus - 1 else duration) for i in range(num_cpus)]
 
-        for process in processes:
-            process.join()
+        guardar_partes(video_filename, cuts)
 
         os.remove(video_filename)
 
