@@ -7,7 +7,7 @@ from Detector import YOLOV5_Detector
 # for video detection addd path in video path
 video_path = 'video (2).mp4'
 vid = cv2.VideoCapture(video_path)
-detector = YOLOV5_Detector(weights='as.pt',
+detector = YOLOV5_Detector(weights='best.pt',
                            img_size=640,
                            confidence_thres=0.25,
                            iou_thresh=0.45,

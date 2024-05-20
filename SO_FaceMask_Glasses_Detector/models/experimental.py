@@ -4,6 +4,7 @@
 import math
 import os
 from pathlib import Path
+import pathlib
 import numpy as np
 import torch
 import torch.nn as nn
@@ -97,7 +98,11 @@ def attempt_load(weights, device=None, inplace=True, fuse=True):
     model = Ensemble()
     for w in weights if isinstance(weights, list) else [weights]:
         value = attempt_download(w)
+        posix_backup = pathlib.PosixPath
+        pathlib.PosixPath = pathlib.WindowsPath
         ckpt = torch.load(value, map_location="cpu")  # load
+        pathlib.PosixPath = posix_backup
+        
         
         ckpt = (ckpt.get("ema") or ckpt["model"]).to(device).float()  # FP32 model
 
