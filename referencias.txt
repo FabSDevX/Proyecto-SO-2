@@ -5,3 +5,8 @@ https://datasetninja.com/od-weapon-detection-knife-detection
 Repo guia: https://github.com/Asafbs94/FaceMask_Glasses_Detector
 Yolov5: https://github.com/ultralytics/yolov5
 Yolov5 tutorial: https://docs.ultralytics.com/yolov5/tutorials/train_custom_data/#13-prepare-dataset-for-yolov5
+
+
+
+
+Notebook de entrenamiento listo: https://colab.research.google.com/drive/1uBjiTptZee6XYdsQrHL3ugZGHIUZaYPY?usp=sharing

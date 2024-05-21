@@ -1,0 +1,64 @@
+.avatarCards {
+  max-width: 1024px;
+  margin: 10px auto 50px auto;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.card-left {
+  justify-self: start;
+}
+
+.card-right {
+  justify-self: end;
+}
+
+.cardsAvatar {
+  border: 2px solid transparent;
+  transition: border 0.3s;
+}
+
+.cardsAvatar.selected {
+  border: 3px solid #3f51b5;
+}
+
+
+.cardsAvatar:hover {
+  scale: 1.1;
+  animation-name: cardBorderLine;
+  animation-duration: 1s;
+  animation-direction: normal;
+  animation-iteration-count: infinite;
+  animation-delay: 0ms;
+}
+
+@media (max-width: 620px) {
+  .cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .card-right {
+    justify-self: start;
+  }
+}
+
+@keyframes cardBorderLine {
+  0% {
+    border-top: #0e5fa2 3px solid;
+  }
+  10% {
+    border-right: #0e5fa2 3px solid;
+  }
+  20% {
+    border-bottom: #0e5fa2 3px solid;
+  }
+  30% {
+    border-left: #0e5fa2 3px solid;
+  }
+}

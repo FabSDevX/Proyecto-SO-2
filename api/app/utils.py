@@ -4,6 +4,7 @@ import multiprocessing
 import math
 import cv2
 import concurrent.futures
+import re
 
 def obtain_video_duration(file):
     video = VideoFileClip(file)
@@ -106,3 +107,23 @@ def detectar_persona(video_files):
     print("Total seconds {:.3f}".format((total_detected_frames_count * 6) * seconds_per_frame))
 
     
+    
+    
+"""
+Example:
+"Messi"
+"MessiMates"
+"UnLugarEnSilencio"
+
+Returns:
+"Messi"
+"Messi Mates"
+"Un Lugar En Silencio"
+"""
+def mayus_separation(texto : str):
+    texto = texto.split('.')[0]
+    # Use a regular expression to separate the uppercase letters
+    separation_words= re.findall('[A-Z][^A-Z]*', texto)
+    # Join Words
+    response = ' '.join(separation_words)
+    return response

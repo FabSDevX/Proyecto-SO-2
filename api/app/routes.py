@@ -4,11 +4,13 @@ import tempfile
 from flask import Blueprint, jsonify, request
 from azure.storage.blob import BlobServiceClient
 import requests
-from .utils import obtain_video_duration, guardar_partes, detectar_persona
+from .utils import obtain_video_duration, guardar_partes, detectar_persona, mayus_separation
 
 routes = Blueprint('routes', __name__)
 
 CONNECTION_STRING = os.getenv('CONNECTION_STRING')
+TMDB_API_KEY = os.getenv('TMDB_API_KEY')
+YT_API_KEY = os.getenv('YT_API_KEY')
 
 blob_service_client = BlobServiceClient.from_connection_string(CONNECTION_STRING)
 container_name = "uploaded-movies"
@@ -133,3 +135,54 @@ def upload_file():
         finally:
             # Clean up temporary file
             os.remove(temp_file_path)
+
+'''
+TMBD: https://www.themoviedb.org/ API for search a movie name and web name, description and image
+Youtube Data API v3: https://developers.google.com/youtube/v3/docs?apix=true&hl=es-419 API for search a YT video and get name, description and image
+
+This route search a upload video to get certain details that can be showen in front-end
+'''
+@routes.route('/search_movie', methods=['GET'])
+def search_movie():
+    video_name = request.args.get('name')
+    if not video_name:
+        return jsonify({'error': 'No movie name provided'}), 400
+    video_name = mayus_separation(video_name) #MessiMates --> Messi Mates
+    search_url_tmbl = 'https://api.themoviedb.org/3/search/movie'
+    params = {
+        'api_key': TMDB_API_KEY,
+        'query': video_name
+    }
+    
+    response = requests.get(search_url_tmbl, params=params)
+    data = response.json()
+    try:
+        if data['results']:
+            entire_data = data['results'][0]
+
+            movie_details = {'title': entire_data['title'],
+                            'description': entire_data['overview'],
+                            'poster_url': "https://image.tmdb.org/t/p/w500" + entire_data['poster_path']}
+        else:
+            search_url_yt = 'https://www.googleapis.com/youtube/v3/search'
+            params = {
+                'part': 'snippet',
+                'q': video_name,
+                'type': 'video',
+                'key': YT_API_KEY
+            }
+            response = requests.get(search_url_yt, params=params)
+            data = response.json()
+            if not data.get('items'):
+                return jsonify({'error': 'No video found'}), 404
+            entire_data = data['items'][0]['snippet']
+            thumbnails = entire_data['thumbnails']
+            largest_thumbnail = max(thumbnails.values(), key=lambda t: t['height'])
+            print(entire_data)
+            movie_details = {'title': entire_data['title'],
+                            'description': entire_data['description'],
+                            'poster_url': largest_thumbnail['url']}
+    except:
+        return jsonify({'error': 'Request error'}), 404
+    
+    return jsonify(movie_details)

@@ -1,0 +1,28 @@
+.existing-videos{
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.existing-videos h2{
+    text-align: center;
+}
+
+#showMoviesVideos {
+    display: flex;
+    margin-bottom: 30px;
+    gap: 15px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+.loading, noContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    gap: 10px;
+}
+
+.card-video:hover{
+
+}

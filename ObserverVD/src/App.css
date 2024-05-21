@@ -1,0 +1,10 @@
+*{
+  scrollbar-color: #0E5FA2 white;
+  scrollbar-width: auto;
+}
+
+body {  
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;  
+}
