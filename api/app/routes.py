@@ -4,11 +4,11 @@ import tempfile
 from flask import Blueprint, jsonify, request
 from azure.storage.blob import BlobServiceClient
 import requests
-from .utils import obtain_video_duration, guardar_partes
+from .utils import obtain_video_duration, guardar_partes, detectar_persona
 
 routes = Blueprint('routes', __name__)
 
-CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=describedmovies;AccountKey=Devf95Gu9WKLbO21qcLQCLztqSYK6Nqrtcnnx/iqrYEXMY/KOwb8kh3QmHWNMbVXSAoAb4GSoXtc+ASty8F0Ww==;EndpointSuffix=core.windows.net"
+CONNECTION_STRING = os.getenv('CONNECTION_STRING')
 
 blob_service_client = BlobServiceClient.from_connection_string(CONNECTION_STRING)
 container_name = "uploaded-movies"
@@ -41,6 +41,8 @@ def list_blobs_in_container():
     return blob_names, blob_count
 
 
+
+
 @routes.route('/obtener_elementos', methods=['GET'])
 def obtener_elementos():
     try:
@@ -71,7 +73,7 @@ def procesar_pelicula():
         elif(num_cpus>=6):num_cpus=5
 
         
-        video_filename = 'MessiMates.mp4'
+        video_filename = 'TemporalVideo.mp4'
 
         # Descargar el video desde la URL
         download_video(video_url, video_filename)
@@ -86,8 +88,48 @@ def procesar_pelicula():
 
         os.remove(video_filename)
 
+        filenames = []
+        index = 0
+        while index < num_cpus:
+            filenames.append("parte_"+ str(index)+ ".mp4")
+            index = index + 1
+
+        detectar_persona(filenames)
+
+        for x in filenames:
+            os.remove(x)
+
         return "Video succesfully"
     else:
         return "Invalid Request"
 
+def upload_to_blob(container_name, file_path, blob_name):
+    blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
+    with open(file_path, "rb") as data:
+        blob_client.upload_blob(data)
+    print(f"File {file_path} uploaded to blob {blob_name} in container {container_name}.")
 
+@routes.route('/upload', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+    
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+    
+    if file:
+        # Save the file to a temporary location
+        temp_dir = tempfile.mkdtemp()
+        temp_file_path = os.path.join(temp_dir, file.filename)
+        file.save(temp_file_path)
+        
+        # Upload the file to Azure Blob Storage
+        try:
+            upload_to_blob(container_name, temp_file_path, file.filename)
+            return jsonify({'message': f"File {file.filename} uploaded successfully."}), 200
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+        finally:
+            # Clean up temporary file
+            os.remove(temp_file_path)
