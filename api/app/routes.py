@@ -76,16 +76,7 @@ def procesar_pelicula():
         # Descargar el video desde la URL
         download_video(video_url, video_filename)
 
-
-        #num_cpus = abs(multiprocessing.cpu_count() - 3)
-        #print(num_cpus)
-        #if(num_cpus==0):num_cpus=1
-
-        num_cpus = 3
-
         duration = obtain_video_duration(video_filename)
-
-        #print(duration)
 
         movie_cuts = duration / num_cpus
        
