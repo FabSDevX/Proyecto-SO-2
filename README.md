@@ -71,7 +71,7 @@ This prints a "Hello world" to check if the API is working
 <h3 align="left">To retrieve all available items in the cloud movie storage and the quantity of items</h3>
 
 <p align="left">
-<pre><code>GET your_local_host/obtener elementos</code></pre>
+<pre><code>GET your_local_host/obtener_elementos</code></pre>
 This gets you a list of the existing items in the cloud storage and the quantity of items.
 </p>
 
