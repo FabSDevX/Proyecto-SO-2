@@ -90,10 +90,19 @@ Remember that, for the "name" label there are only two famous persons only: leon
 
 <h2 align="left">References for used third-party software 👥</h2>
 
+<p align="left">
+Below will be shown all the references used for the development of this project
+</p>
+
 <h3 align="left">Repository used as a guide for training our own model</h3>
+<p align="left">
 https://github.com/Asafbs94/FaceMask_Glasses_Detector
+</p>
 
-
+<h3 align="left">AI used for object detection</h3>
+<p align="left">
+https://github.com/ultralytics/yolov5
+</p>
 
   
 
