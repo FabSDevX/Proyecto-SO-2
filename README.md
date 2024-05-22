@@ -15,13 +15,19 @@ Follow these steps to install the project in your local environment:
 <p align="left">
 <ol>
   <li>Clone this repository:
-    <pre><code>git clone https://github.com/usuario/repo.git</code></pre>
+    <pre><code>git clone https://github.com/FabSDevX/Proyecto-SO-2.git</code></pre>
   </li>
-  <li>Navega al directorio del proyecto:
-    <pre><code>cd repo</code></pre>
+  <li>Navigate to the API directory:
+    <pre><code>cd api</code></pre>
   </li>
-  <li>Instala las dependencias:
-    <pre><code>npm install</code></pre>
+  <li>Create your own conda environment:
+    <pre><code>conda create --name <my-env></code></pre>
+  </li>
+  <li>Activate the the conda environment:
+    <pre><code>conda activate "your conda environment name"</code></pre>
+  </li>
+  <li>Install all the dependencies runnning both requirements.txt files in their respective directory (API and objectDetector directories):
+    <pre><code>pip install -r requirements.txt</code></pre>
   </li>
 </ol>
 </p>
