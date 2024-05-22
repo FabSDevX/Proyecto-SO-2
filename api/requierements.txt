@@ -1,8 +1,0 @@
-Flask
-Flask-Cors
-moviepy
-python-dotenv
-dlib
-face_recognition
-azure-storage-blob
-requests

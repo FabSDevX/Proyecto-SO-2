@@ -1,10 +1,12 @@
 import multiprocessing
 import os
 import tempfile
+import cv2
 from flask import Blueprint, jsonify, request
 from azure.storage.blob import BlobServiceClient
 import requests
 from .utils import obtain_video_duration, guardar_partes, detectar_persona, mayus_separation
+from objectDetector.Detector import YOLOV5_Detector
 
 routes = Blueprint('routes', __name__)
 
@@ -42,9 +44,6 @@ def list_blobs_in_container():
 
     return blob_names, blob_count
 
-
-
-
 @routes.route('/obtener_elementos', methods=['GET'])
 def obtener_elementos():
     try:
@@ -59,16 +58,21 @@ def obtener_elementos():
         return jsonify({'error': str(e)}), 500
 
 
-
 @routes.route('/procesar_pelicula', methods=['POST'])
 def procesar_pelicula():
     if request.method == 'POST':
 
-
+            
         video_url = request.form.get('url_pelicula')
-        if not video_url:
+        name = request.form.get('name')
+        if not video_url or not name:
             return "No URL provided", 400
-
+        detector = YOLOV5_Detector(weights='objectDetector/best.pt',
+                               img_size=640,
+                               confidence_thres=0.3,
+                               iou_thresh=0.45,
+                               agnostic_nms=True,
+                               augment=True)
         
         num_cpus = abs(multiprocessing.cpu_count() - 3)
         if(num_cpus==0):num_cpus=1
@@ -96,12 +100,12 @@ def procesar_pelicula():
             filenames.append("parte_"+ str(index)+ ".mp4")
             index = index + 1
 
-        detectar_persona(filenames)
+        result = detectar_persona(filenames,name,detector)
 
         for x in filenames:
             os.remove(x)
-
-        return "Video succesfully"
+            
+        return jsonify(result)
     else:
         return "Invalid Request"
 
@@ -178,7 +182,6 @@ def search_movie():
             entire_data = data['items'][0]['snippet']
             thumbnails = entire_data['thumbnails']
             largest_thumbnail = max(thumbnails.values(), key=lambda t: t['height'])
-            print(entire_data)
             movie_details = {'title': entire_data['title'],
                             'description': entire_data['description'],
                             'poster_url': largest_thumbnail['url']}

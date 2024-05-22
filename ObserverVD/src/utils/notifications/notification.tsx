@@ -8,8 +8,8 @@ export const askNotificationPermission = () => {
 
 export const sentNotificationMessage = () => {
     new Notification(
-        "Whanalisis",{
-            body: "Tu analisis está listo",
+        "ObserverVD",{
+            body: "Tu deteccion está lista",
         }
     )
 };

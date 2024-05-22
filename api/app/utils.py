@@ -50,43 +50,48 @@ def guardar_partes(nombre_archivo, cuts):
     for process in processes:
         process.join()
 
-def process_video(video_path, sfr, result_queue):
+def process_video(video_path, sfr, result_queue, result_objects_queue,detector):
 
     cap = cv2.VideoCapture(video_path)
-    
-    fps = cap.get(cv2.CAP_PROP_FPS)
-    
+        
     frame_count = 0
     detected_frames_count = 0
+    counts = {}
     while True:
         ret, frame = cap.read()
         if not ret:
             break
-
+        
         if frame_count % 6 == 0:
+            detector.Detect(frame)
             flag = sfr.detect_known_faces(frame)
+            counts.update(detector.get_counts())
+            # cv2.imshow("Detection", res)
+            # key = cv2.waitKey(1)
+            # if key == ord('q'):
+            #     break
             if flag:
                 detected_frames_count += 1
-                print(f"{video_path}: {detected_frames_count}")
-
         frame_count += 1
-
     cap.release()
+    result_objects_queue.put(counts)
     result_queue.put(detected_frames_count)
 
-def detectar_persona(video_files):
+def detectar_persona(video_files,name,detector):
 
     sfr = SimpleFacerec()
-    sfr.load_encoding_images("images/")
-
+    if(name == "leonelMessi"):
+        sfr.load_encoding_images("dataset/messi/")
+    elif( name== "johnKrasinski"):
+        sfr.load_encoding_images("dataset/john/")
     total_detected_frames_count = 0
     
     result_queue = multiprocessing.Queue()
+    result_objects_queue = multiprocessing.Queue()
     processes = []
 
     for video_name in video_files:
-        print(video_name)
-        process = multiprocessing.Process(target=process_video, args=(video_name, sfr, result_queue))
+        process = multiprocessing.Process(target=process_video, args=(video_name, sfr, result_queue, result_objects_queue,detector))
         processes.append(process)
         process.start()
     
@@ -97,18 +102,19 @@ def detectar_persona(video_files):
     while not result_queue.empty():
         total_detected_frames_count += result_queue.get()
 
-    print("Total detected frames:", total_detected_frames_count)
+    knife = 0
+    glasses = 0
+    counts = {}
+    while not result_objects_queue.empty():
+        result = result_objects_queue.get()
+        knife += result['knife']
+        glasses += result['glasses']
+        
+    counts['knife'] = knife * 6
+    counts['glasses'] = glasses * 6
+    counts[name] = total_detected_frames_count * 6
 
-    cap = cv2.VideoCapture(video_files[0])
-    fps = cap.get(cv2.CAP_PROP_FPS)
-    print(fps)
-    seconds_per_frame = 1/fps
-
-    print("Total seconds {:.3f}".format((total_detected_frames_count * 6) * seconds_per_frame))
-
-    
-    
-    
+    return counts
 """
 Example:
 "Messi"

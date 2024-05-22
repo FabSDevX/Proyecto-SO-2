@@ -25,6 +25,7 @@ class YOLOV5_Detector:
         self.model = attempt_load(self.weights) 
         self.stride = int(self.model.stride.max()) 
         self.imgsz = check_img_size(img_size, s=self.stride)  
+        self.counts = {obj: 0 for obj in labels}
 
     def plot_one_box(self, x, img, color=None, label=None, line_thickness=3):
         tl = line_thickness or round(0.002 * (img.shape[0] + img.shape[1]) / 2) + 1  # Line thickness
@@ -39,13 +40,19 @@ class YOLOV5_Detector:
             cv2.putText(img, label, (c1[0], c1[1] - 2), 0, tl / 3, [225, 255, 255], thickness=tf, lineType=cv2.LINE_AA)
 
     def Detect(self, img0):
+
         img = letterbox(img0, self.imgsz, stride=self.stride)[0]
         img = img[:, :, ::-1].transpose(2, 0, 1)
         img = np.ascontiguousarray(img)
 
+        # Get names and colors
+        names = self.model.module.names if hasattr(self.model, 'module') else self.model.names
+        # colors = [[random.randint(0, 255) for _ in range(3)] for _ in names]
+
         img = torch.from_numpy(img).to(self.device)
         img = img.float()
         img /= 255.0
+
         if img.ndimension() == 3:
             img = img.unsqueeze(0)
 
@@ -55,24 +62,38 @@ class YOLOV5_Detector:
         pred = non_max_suppression(pred, self.conf_thres, self.iou_thres, agnostic=self.agnostic_nms)
 
         # Process detections
-        for i, det in enumerate(pred):
-            s = '%gx%g ' % img.shape[2:]  # Print string
-            gn = torch.tensor(img0.shape)[[1, 0, 1, 0]]  # Normalization gain whwh
+        for i, det in enumerate(pred):  # detections per image
+            s = '%gx%g ' % img.shape[2:]  # print string
+            gn = torch.tensor(img0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             if len(det):
+                # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_coords(img.shape[2:], det[:, :4], img0.shape).round()
 
+                # Print results
                 for c in det[:, -1].unique():
-                    n = (det[:, -1] == c).sum()  # Detections per class
-                    s += f"{n} {labels[int(c)]}{'s' * (n > 1)}, "  # Add to string
+                    n = (det[:, -1] == c).sum()  # detections per class
+                    self.counts[labels[int(c)]] += int(n) #count
+                    s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
 
                 for *xyxy, conf, cls in reversed(det):
-                    label = f'{labels[int(cls)]} {conf:.2f}'
-                    self.plot_one_box(xyxy, img0, label=label, color=[0, 0, 255], line_thickness=3)
+                    l = labels[int(cls.tolist())]
+                    
+                    self.counts[l] += 1                    
+                    c = (0, 0, 255)
 
-                print("Total Detections:", len(det))
+                    self.plot_one_box(xyxy, img0, color=c, label=l, line_thickness=3)
+                    
 
+                #print("Total Detections:", len(det))
+
+        # when you detect image uncomment line 89,90,92
+        # cv2.imshow("Result", img0)
+        # cv2.waitKey(0)
+        #
+        # cv2.destroyAllWindows()
         return img0
+        # when you detect video comment line 89,90,92
 
+    #Returns object counts dictionary
     def get_counts(self):
-        # Return counts of detected objects
-        pass
+        return self.counts

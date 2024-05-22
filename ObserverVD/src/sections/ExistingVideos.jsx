@@ -22,7 +22,7 @@ export function ExistingVideos() {
 
   useEffect(() => {
     if (storageBlob && storageBlob["count"] > 0) {
-      // setMovieVideoData();
+      setMovieVideoData();
     } else if (storageBlob) {
       setLoading(false);
     }
