@@ -40,7 +40,7 @@ Once all the installation requirements have been met, follow these steps to use 
 
 <p align="left">
 <ol>
-  <li>In the front-end directory, run the following command in the terminal:
+  <li>In the front-end directory OberverVD, run the following command in the terminal:
     <pre><code>npm run dev</code></pre>
   </li>
   <li>In the API directory, you can run it executing the run.py file or running the following command in the terminal:
