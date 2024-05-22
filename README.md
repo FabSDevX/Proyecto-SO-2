@@ -96,13 +96,21 @@ Below will be shown all the references used for the development of this project
 
 <h3 align="left">Repository used as a guide for training our own model</h3>
 <p align="left">
+Asafbs94 (2022) FaceMask_Glasses_Detector [Source code]. https://github.com/facebookexperimental/Recoil.
 https://github.com/Asafbs94/FaceMask_Glasses_Detector
 </p>
 
 <h3 align="left">AI used for object detection</h3>
 <p align="left">
-https://github.com/ultralytics/yolov5
+Ultralytics (2021) yolov5 [Source code]. https://github.com/ultralytics/yolov5
 </p>
+
+<h3 align="left">AI used for face detection</h3>
+<p align="left">
+Adam Geitgey (2017) face-recognition [library]. [https://github.com/ultralytics/yolov5](https://pypi.org/project/face-recognition/)
+</p>
+
+
 
   
 
