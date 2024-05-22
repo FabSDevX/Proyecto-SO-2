@@ -86,7 +86,7 @@ This gets you a list of the existing items in the cloud storage and the quantity
 }
 </code></pre>
 </p>
-Remember that, for the "name" label there are only two famous persons only: leonelMessi and johnKrasinski, so any other name used in that label will cause malfunctioning
+Remember that, for the "name" label there are only two famous persons available in this system: leonelMessi and johnKrasinski, so any other name used in that label will cause malfunctioning
 
 <h2 align="left">References for used third-party software 👥</h2>
 
