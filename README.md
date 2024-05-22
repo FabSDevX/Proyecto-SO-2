@@ -29,7 +29,7 @@ Follow these steps to install the project in your local environment:
 </ol>
 </p>
 
-<h2 align="left">Guía de Uso 🚀</h2>
+<h2 align="left">Use guide 🚀</h2>
 
 <p align="left">
 Once all the installation requirements have been met, follow these steps to use the system:
@@ -42,9 +42,6 @@ Once all the installation requirements have been met, follow these steps to use 
   </li>
   <li>In the API directory, you can run it executing the run.py file or running the following command in the terminal:
     <pre><code>python run.py</code></pre>
-  </li>
-  <li>In the front-end directory, run the following command in the terminal:
-    <pre><code>npm run dev</code></pre>
   </li>
 </ol>
 </p>
