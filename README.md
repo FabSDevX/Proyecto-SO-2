@@ -26,9 +26,6 @@ Follow these steps to install the project in your local environment:
   <li>Activate the the conda environment:
     <pre><code>conda activate "your conda environment name"</code></pre>
   </li>
-  <li>Install all the dependencies runnning both requirements.txt files in their respective directory (API and objectDetector directories):
-    <pre><code>pip install -r requirements.txt</code></pre>
-  </li>
 </ol>
 </p>
 
