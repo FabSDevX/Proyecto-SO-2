@@ -90,6 +90,11 @@ Remember that, for the "name" label there are only two famous persons only: leon
 
 <h2 align="left">References for used third-party software 👥</h2>
 
+<h3 align="left">Repository used as a guide for training our own model</h3>
+https://github.com/Asafbs94/FaceMask_Glasses_Detector
+
+
+
   
 
 
