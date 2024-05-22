@@ -112,7 +112,7 @@ Adam Geitgey (2017) face-recognition [library]. https://pypi.org/project/face-re
 
 <h3 align="left">Used Cloud Storage</h3>
 <p align="left">
-Microsoft (2008) Azure Blob Storage. https://azure.microsoft.com/en-us/products/storage/blobs/
+Microsoft (2008) Azure Blob Storage [API]. https://azure.microsoft.com/en-us/products/storage/blobs/
 </p>
 
 <h3 align="left">API used to find real movies</h3>
