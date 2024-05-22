@@ -107,13 +107,29 @@ Ultralytics (2021) yolov5 [Source code]. https://github.com/ultralytics/yolov5
 
 <h3 align="left">AI used for face detection</h3>
 <p align="left">
-Adam Geitgey (2017) face-recognition [library]. [https://github.com/ultralytics/yolov5](https://pypi.org/project/face-recognition/)
+Adam Geitgey (2017) face-recognition [library]. https://pypi.org/project/face-recognition/
 </p>
 
+<h3 align="left">Used Cloud Storage</h3>
+<p align="left">
+Microsoft (2008) Azure Blob Storage. https://azure.microsoft.com/en-us/products/storage/blobs/
+</p>
 
+<h3 align="left">API used to find real movies</h3>
+<p align="left">
+	TiVo Corporation (2008) TMDB. https://developer.themoviedb.org/reference/intro/getting-started
+</p>
 
-  
+<h3 align="left">API used to find real videos</h3>
+<p align="left">
+	YouTube (2023) YouTubeData API. https://developers.google.com/youtube/v3/docs/videos?hl=es-419
+</p>
 
+<h2 align="left">Training process ❗ </h2>
+<p align="left">
+	To understand more about the training process that was performed to train the yolov5 object detection model, we highly recommend reviewing our process notebook:
+</p>
 
-
-
+<p align="left">
+	https://colab.research.google.com/drive/1uBjiTptZee6XYdsQrHL3ugZGHIUZaYPY?usp=sharing
+</p>
