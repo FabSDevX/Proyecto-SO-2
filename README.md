@@ -61,6 +61,13 @@ Although the system utilizes resources based on your computer's capability, we r
 A single API was developed as part of the system. Below, It will be described the usage of the developed endpoints and how to make queries to use them:
 </p>
 
+<h3 align="left">To check if the API is working</h3>
+
+<p align="left">
+<pre><code>GET your_local_host/</code></pre>
+This prints a "Hello world" to check if the API in working
+</p>
+
 <h3 align="left">To retrieve all available items in the cloud movie storage and the quantity of items</h3>
 
 <p align="left">
@@ -71,7 +78,7 @@ This gets you a list of the existing items in the cloud storage and the quantity
 <h3 align="left">To analyze a target video</h3>
 
 <p align="left">
-<pre><code>POST your_local_host/procesar_pelicula></code></pre> Performs an analysis of a video already uploaded in cloud storage. Below is an example of the request body:
+<pre><code>POST your_local_host/procesar_pelicula</code></pre> Performs an analysis of a video already uploaded in cloud storage. Below is an example of the request body:
 <pre><code>
 {
   "url_pelicula": "https://the/exact/url/of/your/video",
