@@ -74,7 +74,11 @@ This gets you a list of the existing items in the cloud storage and the quantity
   "url_pelicula": "https://the/exact/url/of/your/video",
   "name": "leonelMessi"
 }
-</code></pre>Remember that for the "name" label, there are only two famous persons available: leonelMessi and johnKrasinski, any other name used there will generate malfunctioning.</p>
+</code></pre></p>
+<p align="left">
+<pre><code>GET your_local_host/obtener elementos</code></pre>
+Remember that for the "name" label, there are only two famous persons available: leonelMessi and johnKrasinski, any other name used there will generate malfunctioning.
+</p>
   
 
 
