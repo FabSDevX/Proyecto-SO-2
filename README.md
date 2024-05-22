@@ -52,7 +52,7 @@ Remember that for the API directory to function, we are using other APIs for the
 Although the system utilizes resources based on your computer's capability, we recommend testing the system first with small-duration and small-sized videos to observe its functionality and your computer's performance, gradually increasing the size of the videos afterward. Keep in mind that the larger the video used, the longer the analysis will take.
 </p>
 
-<h2 align="left">Documentación de API 📚</h2>
+<h2 align="left">API Documentation 📚</h2>
 
 <p align="left">
 A single API was developed as part of the system. Below, It will be described the usage of the developed endpoints and how to make queries to use them:
@@ -78,7 +78,7 @@ This gets you a list of the existing items in the cloud storage and the quantity
 </p>
 Remember that, for the "name" label there are only two famous persons only: leonelMessi and johnKrasinski, so any other name used in that label will cause malfunctioning
 
-
+<h2 align="left">Third party software used references 👥</h2>
 
   
 
