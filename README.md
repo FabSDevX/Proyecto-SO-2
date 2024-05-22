@@ -65,11 +65,13 @@ A single API was developed as part of the system. Below, It will be described th
 This gets you a list of the existing items in the cloud storage and the quantity of items.
 </p>
 
-<h3 align="left">Crear una nueva tarea</h3>
+<h3 align="left">To analyze a target video</h3>
+
+Performs an analysis of a video already uploaded in cloud storage. Below is an example of the request body:
 
 <p align="left">
 <pre><code>POST your_local_host/procesar_pelicula></pre>
-Performs an analysis of a video already uploaded in cloud storage. Below is an example of the request body:
+
 <pre><code>
 {
   "url_pelicula": "https://the/exact/url/of/your/video",
