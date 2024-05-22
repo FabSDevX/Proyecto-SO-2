@@ -74,8 +74,7 @@ This gets you a list of the existing items in the cloud storage and the quantity
   "url_pelicula": "https://the/exact/url/of/your/video",
   "name": "leonelMessi"
 }
-Remember that for the "name" label, there are only two famous persons available: leonelMessi and johnKrasinski, any other name used there will generate malfunctioning.
-</code></pre>
+</code></pre>Remember that for the "name" label, there are only two famous persons available: leonelMessi and johnKrasinski, any other name used there will generate malfunctioning.
 </p>
   
 
