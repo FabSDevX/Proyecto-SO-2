@@ -5,12 +5,15 @@ import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
 import { uploadBlob } from "../utils/apis/postApi";
 import propTypes from "prop-types";
+import { useEffect } from "react";
+import { CircularProgress } from "@mui/material";
 
-export function FileDrag({ selectedActor }) {
+export function FileDrag({ selectedActor, handleVideoData, selectedVideoParam, handleDrop }) {
   const [navigated, setNavigated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  
+  const [selectedVideo, setSelectedVideo] = useState(selectedVideoParam);
+
   const navigate = useNavigate();
 
   function navigateToReports() {
@@ -20,27 +23,51 @@ export function FileDrag({ selectedActor }) {
       } else {
         setNavigated(true);
         navigate("/reports", {
-          state: {},
+          state: {
+            selectedVideo,
+            selectedActor,
+          },
         });
       }
     }
   }
 
-  const onDrop = useCallback((acceptedFiles) => {
+  useEffect(() => {
+    if(selectedVideoParam==null){
+      setLoaded(false);
+    }
+    setSelectedVideo(selectedVideoParam)
+  },[selectedVideoParam]);
+
+  useEffect(()=>{
+    handleChange();
+  },[selectedVideo])
+
+  function handleChange(){
+    if(selectedVideo!=null){
+      setLoading(false);
+      setLoaded(true);
+      setSelectedVideo(selectedVideo);
+      handleDrop(false);
+      handleVideoData(selectedVideo)
+    }
+  }
+
+  const onDrop = useCallback(async (acceptedFiles) => {
+    setLoaded(false);
+    setLoading(true);
+    handleDrop(true);
     const acceptedVideoFormats = ["mp4", "mp3", "avi", "mkv"];
     acceptedFiles = acceptedFiles[0];
     const name = acceptedFiles["name"];
     const parts = name.split(".");
     const size = parts.length;
     if (acceptedVideoFormats.includes(parts[size - 1])) {
-      setLoading(true);
-      const response = uploadBlob(acceptedFiles);
-      if (response) {
-        setLoading(false);
-        setLoaded(true);
-      } else {
-        alert("Error subiendo el archivo");
-      }
+      await uploadBlob(acceptedFiles);
+      setLoading(false);
+      setLoaded(true);
+      setSelectedVideo(name);
+      handleVideoData(name)
     } else {
       alert("Formato no aceptado");
     }
@@ -80,12 +107,22 @@ export function FileDrag({ selectedActor }) {
         </span>
 
         {loading ? (
-          <p>Cargando archivos...</p>
+          <><p>Cargando archivos...</p><CircularProgress /></>
         ) : (
           loaded && (
-            <button className="FileDrag-btn" onClick={navigateToReports}>
-              Procesar
-            </button>
+            <>
+              <button className="FileDrag-btn" onClick={navigateToReports}>
+                Procesar
+              </button>
+              <div className="selected-video">
+                <span className="first-span">
+                Video seleccionado: 
+                </span>
+                <span className="second-span">
+                   {selectedVideo}
+                </span>
+              </div>
+            </>
           )
         )}
       </section>
@@ -95,4 +132,7 @@ export function FileDrag({ selectedActor }) {
 
 FileDrag.propTypes = {
   selectedActor: propTypes.any,
+  handleVideoData: propTypes.any,
+  selectedVideoParam: propTypes.any,
+  handleDrop: propTypes.any
 };

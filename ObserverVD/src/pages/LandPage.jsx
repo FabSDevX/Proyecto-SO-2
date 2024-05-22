@@ -9,8 +9,18 @@ import { ExistingVideos } from "../sections/ExistingVideos";
 import { useState } from "react";
 export function LandPage() {
   const [selectActor, setSelectActor] = useState(null);
+  const [selectVideo, setSelectVideo] = useState(null);
+  const [activateDrop, setActivateDrop] = useState(false)
   const handleActorData = (data) => {
     setSelectActor(data);
+  };
+
+  const handleVideoData = (dataVideo) => {
+    setSelectVideo(dataVideo);
+  };
+
+  const handleDrop = (response) => {
+    setActivateDrop(response);
   };
 
   useEffect(() => {
@@ -33,8 +43,8 @@ export function LandPage() {
           image={HeroImg}
         />
         <AvatarCards handleActorData={handleActorData} />
-        <FileDrag selectedActor={selectActor} />
-        <ExistingVideos />
+        <FileDrag selectedActor={selectActor} selectedVideoParam={selectVideo} handleVideoData={handleVideoData} handleDrop={handleDrop} />
+        <ExistingVideos handleVideoData={handleVideoData} activateDrop={activateDrop} />
         <CopyrightFooter />
       </div>
     </>

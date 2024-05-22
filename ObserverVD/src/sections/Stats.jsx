@@ -1,23 +1,46 @@
-import "./Stats.css";
 import { useEffect, useState } from "react";
-// import { BarChart } from "@mui/x-charts/BarChart";
-// import { PieChart } from "@mui/x-charts/PieChart";
+import { BarChart } from "@mui/x-charts/BarChart";
+import { PieChart } from "@mui/x-charts/PieChart";
 import { BarLoader } from "react-spinners";
+import { processVideo } from "../utils/apis/postApi";
+import "./Stats.css";
+import propTypes from "prop-types";
 
-
-export function Stats(){
+export function Stats({ selectedVideo, selectedActor }) {
   const [isLoading, setIsLoading] = useState(true);
-  // const [chartResult, setChartResult] = useState<{
-  //   categories: string[];
-  //   confidence: number[];
-  // }>({ categories: [], confidence: [] });
+  const [chartResult, setChartResult] = useState({
+    categories: [],
+    confidence: [],
+  });
+  const [selectedGraphOption, setSelectedGraphOption] = useState("Barras");
   useEffect(() => {
-    const start = Date.now();
     setIsLoading(true);
+    handleData();
     console.log("Starting analysis...");
   }, []);
 
-  
+  const handleNavGraphOption = async (identifier) => {
+    setSelectedGraphOption(identifier);
+  };
+
+  async function handleData() {
+    const response = await processVideo(selectedActor,selectedVideo)
+    if (response != null) {
+      // Extraer las categorías y las confidencias del objeto de respuesta.
+      const categories = Object.keys(response);
+      const confidence = Object.values(response);
+
+      // Actualizar el estado con los nuevos valores.
+      setChartResult({
+        categories,
+        confidence,
+      });
+      setIsLoading(false);
+    } else {
+      alert("Error en la respuesta");
+    }
+  }
+
   return (
     <section>
       {isLoading ? (
@@ -33,14 +56,14 @@ export function Stats(){
         </>
       ) : (
         <>
-        <p>ss</p>
-          {/* <div className="stats-section">
+          <div className="stats-section">
             <div className="container">
               <div className="stats-container">
                 {chartResult.categories.length > 0 &&
                 chartResult.confidence.length > 0 ? (
                   selectedGraphOption === "Barras" ? (
-                    <BarChart className="barchar"
+                    <BarChart
+                      className="barchar"
                       xAxis={[
                         {
                           id: "barCategories",
@@ -64,7 +87,6 @@ export function Stats(){
                             id: index,
                             value: value,
                             label: chartResult.categories[index],
-                        
                           })),
                         },
                       ]}
@@ -74,8 +96,7 @@ export function Stats(){
                   )
                 ) : (
                   <p className="stats-paragraph">
-                    No hay datos disponibles para mostrar para{" "}
-                    {selectedAnalysisOption}.
+                    No hay datos disponibles para mostrar para
                   </p>
                 )}
               </div>
@@ -102,9 +123,14 @@ export function Stats(){
                 </li>
               </ul>
             </div>
-          </div> */}
+          </div>
         </>
       )}
     </section>
   );
+}
+
+Stats.propTypes = {
+  selectedActor: propTypes.any,
+  selectedVideo: propTypes.any,
 };

@@ -36,7 +36,7 @@ export async function searchMovies(names: any[]) {
   try {
     const promises = names.map((name: any) => searchMovie(name));
     const results = await Promise.all(promises);
-    return results.filter(result => result !== null);
+    return results;
   } catch (error) {
     console.error("Error processing movie search requests:", error);
     return [];

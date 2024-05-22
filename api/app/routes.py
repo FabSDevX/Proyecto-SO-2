@@ -67,7 +67,7 @@ def procesar_pelicula():
         name = request.form.get('name')
         if not video_url or not name:
             return "No URL provided", 400
-        detector = YOLOV5_Detector(weights='objectDetector/best.pt',
+        detector = YOLOV5_Detector(weights='objectDetector/as.pt',
                                img_size=640,
                                confidence_thres=0.3,
                                iou_thresh=0.45,
@@ -168,23 +168,24 @@ def search_movie():
                             'description': entire_data['overview'],
                             'poster_url': "https://image.tmdb.org/t/p/w500" + entire_data['poster_path']}
         else:
-            search_url_yt = 'https://www.googleapis.com/youtube/v3/search'
-            params = {
-                'part': 'snippet',
-                'q': video_name,
-                'type': 'video',
-                'key': YT_API_KEY
-            }
-            response = requests.get(search_url_yt, params=params)
-            data = response.json()
-            if not data.get('items'):
-                return jsonify({'error': 'No video found'}), 404
-            entire_data = data['items'][0]['snippet']
-            thumbnails = entire_data['thumbnails']
-            largest_thumbnail = max(thumbnails.values(), key=lambda t: t['height'])
-            movie_details = {'title': entire_data['title'],
-                            'description': entire_data['description'],
-                            'poster_url': largest_thumbnail['url']}
+            return jsonify({'error': 'No video found'}), 404
+            # search_url_yt = 'https://www.googleapis.com/youtube/v3/search'
+            # params = {
+            #     'part': 'snippet',
+            #     'q': video_name,
+            #     'type': 'video',
+            #     'key': YT_API_KEY
+            # }
+            # response = requests.get(search_url_yt, params=params)
+            # data = response.json()
+            # if not data.get('items'):
+            #     return jsonify({'error': 'No video found'}), 404
+            # entire_data = data['items'][0]['snippet']
+            # thumbnails = entire_data['thumbnails']
+            # largest_thumbnail = max(thumbnails.values(), key=lambda t: t['height'])
+            # movie_details = {'title': entire_data['title'],
+            #                 'description': entire_data['description'],
+            #                 'poster_url': largest_thumbnail['url']}
     except:
         return jsonify({'error': 'Request error'}), 404
     

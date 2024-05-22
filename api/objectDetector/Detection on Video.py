@@ -5,7 +5,7 @@ from Detector import YOLOV5_Detector
 # for live detetcion enter 0 in path
 #video_path = 0
 # for video detection addd path in video path
-video_path = 'objectDetector/defense.mp4'
+video_path = 'objectDetector/MessiMates.mp4'
 
 
 cap = cv2.VideoCapture(video_path)
@@ -15,7 +15,7 @@ detected_frames_count = 0
 
 detector = YOLOV5_Detector(weights='objectDetector/best.pt',
                            img_size=640,
-                           confidence_thres=0.40,
+                           confidence_thres=0.60,
                            iou_thresh=0.45,
                            agnostic_nms=True,
                            augment=True)

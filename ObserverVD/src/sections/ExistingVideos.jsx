@@ -9,16 +9,23 @@ import {
   Typography,
 } from "@mui/material";
 import "./ExistingVideos.css";
+import propTypes from "prop-types";
 
-export function ExistingVideos() {
+export function ExistingVideos({ handleVideoData, activateDrop }) {
   const [storageBlob, setStorageBlob] = useState(null);
   const [showData, setShowData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [nullIndex, setNullIndex] = useState(0);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   useEffect(() => {
     setLoading(true);
     setStorageBlobData();
   }, []);
+  
+  useEffect(() => {
+    setSelectedCard(null);
+  }, [activateDrop]);
 
   useEffect(() => {
     if (storageBlob && storageBlob["count"] > 0) {
@@ -35,9 +42,21 @@ export function ExistingVideos() {
 
   async function setMovieVideoData() {
     const results = await searchMovies(storageBlob["blobs"]);
-    setShowData(results);
+    setNullIndex(results.filter((result) => result == null).length);
+    setShowData(results.filter((result) => result != null));
     setLoading(false);
   }
+
+  const handleCardClick = (index) => {
+    const isSelected = selectedCard === index;
+    setSelectedCard(isSelected ? null : index);
+    if(index!=0){
+      handleVideoData(isSelected ? null : storageBlob.blobs[index + nullIndex]);
+    }
+    else{
+      handleVideoData(isSelected ? null : storageBlob.blobs[index]);
+    }
+  };
 
   return (
     <section className="existing-videos">
@@ -52,7 +71,14 @@ export function ExistingVideos() {
           </div>
         ) : showData && showData.length > 0 ? (
           showData.map((video, index) => (
-            <Card className="card-video" sx={{ maxWidth: 345 }} key={index}>
+            <Card
+              className={`card-video ${
+                selectedCard === index ? "selected" : ""
+              }`}
+              sx={{ maxWidth: 345 }}
+              key={index}
+              onClick={() => handleCardClick(index)}
+            >
               <CardActionArea>
                 <CardMedia
                   component="img"
@@ -82,3 +108,8 @@ export function ExistingVideos() {
     </section>
   );
 }
+
+ExistingVideos.propTypes = {
+  handleVideoData: propTypes.any,
+  activateDrop: propTypes.any,
+};

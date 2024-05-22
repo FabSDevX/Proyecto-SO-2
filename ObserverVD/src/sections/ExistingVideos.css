@@ -24,5 +24,31 @@
 }
 
 .card-video:hover{
-
+    scale: 1.1;
+    animation-name: cardBorderLine;
+    animation-duration: 1s;
+    animation-direction: normal;
+    animation-iteration-count: infinite;
+    animation-delay: 0ms;
 }
+
+.card-video.selected {
+    border: 2px solid blue;
+  }
+
+
+  
+@keyframes cardBorderLine {
+    0% {
+      border-top: blue 2px solid;
+    }
+    10% {
+      border-right: blue 2px solid;
+    }
+    20% {
+      border-bottom: blue 2px solid;
+    }
+    20% {
+      border-left: blue 3px solid;
+    }
+  }

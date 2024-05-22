@@ -2,7 +2,10 @@ import { Hero } from "../sections/Hero";
 import { CopyrightFooter } from "../sections/CopyrightFooter";
 import { Stats } from "../sections/Stats";
 import HeroImg from "@assets/svg/hero.svg";
+import { useLocation } from "react-router-dom";
 export function Reports() {
+  const location = useLocation();
+  const { selectedVideo, selectedActor} = location.state;
   return (
     <>
       <div style={{ minWidth: "622px" }}>
@@ -13,7 +16,7 @@ export function Reports() {
           }
           image={HeroImg}
         />
-        <Stats />
+        <Stats selectedActor={selectedActor} selectedVideo={selectedVideo} />
         <CopyrightFooter /> 
       </div>
     </>
