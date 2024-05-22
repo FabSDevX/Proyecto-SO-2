@@ -1,7 +1,9 @@
-<h1 align="left">Descripción del Proyecto 📝</h1>
+<h1 align="left">Project Description 📝</h1>
 
 <p align="left">
-El presente repositorio es un sistema para gestionar tareas de manera eficiente. Este proyecto está diseñado para ayudar a los usuarios a organizar y seguir sus tareas diarias con facilidad.
+El presente proyecto tiene la finalidad de realizar un sistema capaz de detectar en un video proporcionado por el usuario la aparición de personas y objetos. En específico, se realizó el entrenamiento de dos modelos de detección: Un modelo capaz de detectar a dos famosos, Lionel Messi y John Krasinski, y un modelo capaz de detectar dos objetos: Cuchillos o anteojos.
+
+Para que el sistema realice el análisis y detección de estos objetos, los usuarios serán capaces de proporcionar videos o seleccionar uno de los ya disponibles, subidos en la nube previamente por otros usuarios. Los usuarios podrán seleccionar cuál famoso querrán detectar, y los objetos serán detectados por defecto a modo de simular el procecso de moderación de contenido. Una vez terminado el proceso de detección, el sistema proporcionará una pantalla con los resultados obtenidos, indicando la cantidad de frames detectados de cada uno de los elementos.
 </p>
 
 <h2 align="left">Instrucciones de Instalación 📦</h2>
