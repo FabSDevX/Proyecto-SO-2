@@ -67,19 +67,17 @@ This gets you a list of the existing items in the cloud storage and the quantity
 
 <h3 align="left">To analyze a target video</h3>
 
-Performs an analysis of a video already uploaded in cloud storage. Below is an example of the request body:
-
 <p align="left">
-<pre><code>POST your_local_host/procesar_pelicula></pre>
-
+<pre><code>POST your_local_host/procesar_pelicula></pre> Performs an analysis of a video already uploaded in cloud storage. Below is an example of the request body:
 <pre><code>
 {
   "url_pelicula": "https://the/exact/url/of/your/video",
   "name": "leonelMessi"
 }
-Remember that for the "name" label, there are only two famous persons available: leonelMessi and johnKrasinski, any other name used there will generate malfunctioning.
 </code></pre>
 </p>
+  
+Remember that for the "name" label, there are only two famous persons available: leonelMessi and johnKrasinski, any other name used there will generate malfunctioning.
 
 <h3 align="left">Actualizar una tarea</h3>
 
