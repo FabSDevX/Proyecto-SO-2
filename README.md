@@ -65,7 +65,7 @@ A single API was developed as part of the system. Below, It will be described th
 
 <p align="left">
 <pre><code>GET your_local_host/</code></pre>
-This prints a "Hello world" to check if the API in working
+This prints a "Hello world" to check if the API is working
 </p>
 
 <h3 align="left">To retrieve all available items in the cloud movie storage and the quantity of items</h3>
