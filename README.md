@@ -6,7 +6,7 @@ The purpose of this project is to create a system capable of detecting the appea
 For the system to perform the analysis and detection of these objects, users will be able to provide videos or select one of the already available videos previously uploaded to the cloud by other users. Users will be able to choose which celebrity they want to detect, and the objects will be detected by default to simulate the content moderation process. Once the detection process is completed, the system will display a screen with the obtained results, indicating the number of frames in which each of the elements were detected.
 </p>
 
-<h2 align="left">Installation Instruction 📦</h2>
+<h2 align="left">Installation instructions 📦</h2>
 
 <p align="left">
 Follow these steps to install the project in your local environment:
@@ -35,15 +35,27 @@ Follow these steps to install the project in your local environment:
 <h2 align="left">Guía de Uso 🚀</h2>
 
 <p align="left">
-Para iniciar la aplicación, ejecuta el siguiente comando:
+Once all the installation requirements have been met, follow these steps to use the system:
 </p>
 
 <p align="left">
-<pre><code>npm start</code></pre>
+<ol>
+  <li>In the front-end directory, run the following command in the terminal:
+    <pre><code>npm run dev</code></pre>
+  </li>
+  <li>In the API directory, you can run it executing the run.py file or running the following command in the terminal:
+    <pre><code>python run.py</code></pre>
+  </li>
+  <li>In the front-end directory, run the following command in the terminal:
+    <pre><code>npm run dev</code></pre>
+  </li>
+</ol>
 </p>
 
 <p align="left">
-Una vez que la aplicación esté en funcionamiento, abre tu navegador y ve a <a href="http://localhost:3000">http://localhost:3000</a> para acceder a la interfaz de usuario.
+Remember that for the API directory to function, we are using other APIs for the system to work. Therefore, in the API routes file, you need to use your own key for the TMDB API (variable TMDB_API_KEY), your own key for the YT Data API (variable YT_API_KEY), as well as your own connection string for cloud storage with Microsoft Azure Blob Storage (variable CONNECTION_STRING).
+
+Although the system utilizes resources based on your computer's capability, we recommend testing the system first with small-duration and small-sized videos to observe its functionality and your computer's performance, gradually increasing the size of the videos afterward. Keep in mind that the larger the video used, the longer the analysis will take.
 </p>
 
 <h2 align="left">Documentación de API 📚</h2>
