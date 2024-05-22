@@ -68,7 +68,7 @@ This gets you a list of the existing items in the cloud storage and the quantity
 <h3 align="left">To analyze a target video</h3>
 
 <p align="left">
-<pre><code>POST your_local_host/procesar_pelicula></pre> Performs an analysis of a video already uploaded in cloud storage. Below is an example of the request body:
+<pre><code>POST your_local_host/procesar_pelicula></code></pre> Performs an analysis of a video already uploaded in cloud storage. Below is an example of the request body:
 <pre><code>
 {
   "url_pelicula": "https://the/exact/url/of/your/video",
