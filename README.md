@@ -80,29 +80,4 @@ This gets you a list of the existing items in the cloud storage and the quantity
 
 
 
-<h3 align="left">Actualizar una tarea</h3>
 
-<p align="left">
-<pre><code>PUT /api/tareas/:id</code></pre>
-Actualiza una tarea existente. Ejemplo de cuerpo de la solicitud:
-<pre><code>
-{
-  "titulo": "Tarea Actualizada",
-  "descripcion": "Descripción actualizada",
-  "fecha_vencimiento": "2024-12-31"
-}
-</code></pre>
-</p>
-
-<h3 align="left">Eliminar una tarea</h3>
-
-<p align="left">
-<pre><code>DELETE /api/tareas/:id</code></pre>
-Elimina una tarea existente.
-</p>
-
-<h2 align="left">Créditos</h2>
-
-<p align="left">
-Autor: <a href="https://github.com/tuusuario">Tu Nombre</a>
-</p>
