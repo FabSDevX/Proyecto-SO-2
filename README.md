@@ -55,27 +55,27 @@ Although the system utilizes resources based on your computer's capability, we r
 <h2 align="left">Documentación de API 📚</h2>
 
 <p align="left">
-La API del sistema ofrece varias funcionalidades para gestionar tareas. A continuación se presentan algunos de los endpoints disponibles:
+A single API was developed as part of the system. Below, It will be described the usage of the developed endpoints and how to make queries to use them:
 </p>
 
-<h3 align="left">Obtener todas las tareas</h3>
+<h3 align="left">To retrieve all available items in the cloud movie storage and the quantity of items</h3>
 
 <p align="left">
-<pre><code>GET /api/tareas</code></pre>
-Devuelve una lista de todas las tareas.
+<pre><code>GET your_local_host/obtener elementos</code></pre>
+This gets you a list of the existing items in the cloud storage and the quantity of items.
 </p>
 
 <h3 align="left">Crear una nueva tarea</h3>
 
 <p align="left">
-<pre><code>POST /api/tareas</code></pre>
-Crea una nueva tarea. Ejemplo de cuerpo de la solicitud:
+<pre><code>POST your_local_host/procesar_pelicula></pre>
+Performs an analysis of a video already uploaded in cloud storage. Below is an example of the request body:
 <pre><code>
 {
-  "titulo": "Nueva Tarea",
-  "descripcion": "Descripción de la nueva tarea",
-  "fecha_vencimiento": "2024-12-31"
+  "url_pelicula": "https://the/exact/url/of/your/video",
+  "name": "leonelMessi"
 }
+Remember that for the "name" label, there are only two famous persons available: leonelMessi and johnKrasinski, any other name used there will generate malfunctioning.
 </code></pre>
 </p>
 
