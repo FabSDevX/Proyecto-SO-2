@@ -117,12 +117,12 @@ Microsoft (2008) Azure Blob Storage. https://azure.microsoft.com/en-us/products/
 
 <h3 align="left">API used to find real movies</h3>
 <p align="left">
-	TiVo Corporation (2008) TMDB. https://developer.themoviedb.org/reference/intro/getting-started
+	TiVo Corporation (2008) TMDB [API]. https://developer.themoviedb.org/reference/intro/getting-started
 </p>
 
 <h3 align="left">API used to find real videos</h3>
 <p align="left">
-	YouTube (2023) YouTubeData API. https://developers.google.com/youtube/v3/docs/videos?hl=es-419
+	YouTube (2023) YouTubeData API [API]. https://developers.google.com/youtube/v3/docs/videos?hl=es-419
 </p>
 
 <h2 align="left">Training process ❗ </h2>
